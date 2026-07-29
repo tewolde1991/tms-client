@@ -1,0 +1,166 @@
+$card-bg: #ffffff;
+$card-border: #d0d7de;
+$shadow: 0 1px 0 rgba(27, 31, 35, 0.04);
+$text-main: #24292f;
+$text-muted: #57606a;
+$error-color: #cf222e;
+$success-bg: #dafbe1;
+$success-border: #1a7f37;
+$success-text: #1a7f37;
+$input-border: #d0d7de;
+$input-bg: #ffffff;
+$input-focus-border: #0969da;
+$button-bg: #f6f8fa;
+$button-border: #d0d7de;
+$button-hover-bg: #f3f4f6;
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $text-main;
+}
+
+/* Success message shown after submitted() */
+
+.success {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid $success-border;
+  background-color: $success-bg;
+  color: $success-text;
+  font-size: 0.9rem;
+}
+
+/* Form card */
+
+form {
+  margin-top: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 6px;
+  border: 1px solid $card-border;
+  box-shadow: $shadow;
+  background-color: $card-bg;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Inputs and labels */
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $text-muted;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.4rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid $input-border;
+  background-color: $input-bg;
+  font-size: 0.9rem;
+  font-family: inherit;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: $input-focus-border;
+    box-shadow: 0 0 0 1px rgba(9, 105, 218, 0.2);
+  }
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Error text under fields */
+
+.error {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: $error-color;
+}
+
+/* Backup courses section */
+
+h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-main;
+}
+
+.backup-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  input {
+    flex: 1;
+  }
+
+  button {
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid $button-border;
+    background-color: $button-bg;
+    font-size: 0.8rem;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background-color: $button-hover-bg;
+    }
+  }
+}
+
+/* Add backup + submit buttons */
+
+button[type='button'] {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid $button-border;
+  background-color: $button-bg;
+  font-size: 0.85rem;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background-color: $button-hover-bg;
+  }
+}
+
+button[type='submit'] {
+  margin-top: 0.75rem;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  border: 1px solid $button-border;
+  background-color: $button-bg;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background-color: $button-hover-bg;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+hr {
+  margin: 0.75rem 0;
+  border: none;
+  border-top: 1px solid $card-border;
+}

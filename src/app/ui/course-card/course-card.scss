@@ -1,0 +1,101 @@
+$card-bg: #ffffff;
+$card-border: #d0d7de;
+$card-hover: #f6f8fa;
+$title-color: #24292f;
+$muted: #57606a;
+$badge-bg: #dafbe1;
+$badge-text: #1a7f37;
+$badge-closed-bg: #ffebe9;
+$badge-closed-text: #cf222e;
+$button-bg: #f6f8fa;
+$button-border: #d0d7de;
+$button-hover-bg: #f3f4f6;
+
+.card {
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  background-color: $card-bg;
+  border-radius: 6px;
+  border: 1px solid $card-border;
+  box-shadow: 0 1px 0 rgba(27, 31, 35, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: $card-hover;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $title-color;
+
+    a {
+      color: $title-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    span {
+      font-weight: 400;
+      color: $muted;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: $muted;
+  }
+
+  .badge {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: $badge-bg;
+    color: $badge-text;
+
+    &.closed {
+      background-color: $badge-closed-bg;
+      color: $badge-closed-text;
+    }
+  }
+
+  button {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid $button-border;
+    background-color: $button-bg;
+    cursor: pointer;
+    font-size: 0.85rem;
+
+    &:hover:not(:disabled) {
+      background-color: $button-hover-bg;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    /* Enroll link inside button */
+    a {
+      color: $title-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none; /* keep button feel */
+      }
+    }
+  }
+}
