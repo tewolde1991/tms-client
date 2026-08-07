@@ -1,8 +1,8 @@
 import { Component, signal, computed, inject } from '@angular/core';
 import { Course } from '../../models/course.model';
-import { CourseCardComponent } from '../../ui/course-card/course-card';
 import { CourseService } from '../../services/course.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { CourseCardComponent } from '../../ui/course-card/course-card';
 
 @Component({
   selector: 'app-student-dashboard',

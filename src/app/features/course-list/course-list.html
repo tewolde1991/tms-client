@@ -1,0 +1,53 @@
+<div class="header">
+  <h2>Courses</h2>
+  <button mat-flat-button color="primary" (click)="openCreate()">
+    New Course
+  </button>
+</div>
+
+@if (store.isLoading()) {
+  <p>Loading courses...</p>
+}
+
+@if (store.error()) {
+  <p class="error">{{ store.error() }}</p>
+}
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
+    <td mat-cell *matCellDef="let row">{{ row.code }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+    <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="enrollmentCount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Enrolled</th>
+    <td mat-cell *matCellDef="let row">{{ row.enrollmentCount }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="maxCapacity">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</th>
+    <td mat-cell *matCellDef="let row">{{ row.maxCapacity }}</td>
+  </ng-container>
+
+  <!-- NEW: Actions column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-button color="primary" (click)="openEdit(row)">Edit</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[10, 25, 50]"
+  showFirstLastButtons>
+</mat-paginator>

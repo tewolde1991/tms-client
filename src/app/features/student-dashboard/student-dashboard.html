@@ -16,8 +16,8 @@
     }
  @else {
 <div class="grid">
-@for (course of coursesResource.value()!; track course.id) {
-<tms-course-card [course]="course" (enrollClicked)="handleEnroll($event)" />
+@for (course of coursesResource.value()!.items; track course.id) {
+<app-course-card [course]="course" (enrollClicked)="handleEnroll($event)" />
 } @empty {
 <p>No courses are available this term.</p>
 }

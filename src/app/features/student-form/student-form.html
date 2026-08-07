@@ -1,0 +1,83 @@
+<h2>Student Form</h2>
+
+@if (submitted()) {
+  <div class="success">
+    Student saved successfully. Check the console for the payload.
+  </div>
+} @else {
+  <!-- [formGroup]="form" connects this <form> tag to the TypeScript form
+       object you built above. -->
+  <!-- (ngSubmit)="onSubmit()" calls your onSubmit() method when the user
+       presses Enter or clicks the submit button. -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- ==================== NAME ==================== -->
+    <label for="name">Full Name</label>
+    <!-- formControlName="name" links this input to the 'name'
+         field in the form group. -->
+    <!-- Angular keeps the TypeScript value and the on-screen input in sync
+         automatically. -->
+    <input
+      id="name"
+      formControlName="name"
+      placeholder="e.g. Liya Kebede"
+    />
+
+    <!-- Show the error ONLY when the user has clicked into and out of the
+         field (.touched) AND the current value fails validation (.invalid). -->
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <span class="error">
+        @if (form.controls.name.hasError('required')) {
+          Name is required
+        }
+        @if (form.controls.name.hasError('minlength')) {
+          Name must be at least 2 characters
+        }
+      </span>
+    }
+
+    <!-- ==================== GPA ==================== -->
+    <label for="gpa">GPA</label>
+    <input
+      id="gpa"
+      type="number"
+      step="0.01"
+      min="0"
+      max="4"
+      formControlName="gpa"
+      placeholder="e.g. 3.75"
+    />
+
+    @if (form.controls.gpa.touched && form.controls.gpa.invalid) {
+      <span class="error">
+        @if (form.controls.gpa.hasError('required')) {
+          GPA is required
+        }
+        @if (form.controls.gpa.hasError('min') || form.controls.gpa.hasError('max')) {
+          GPA must be between 0.00 and 4.00
+        }
+      </span>
+    }
+
+    <!-- ==================== IS ACTIVE ==================== -->
+    <label class="checkbox-label">
+      <!-- Checkbox is bound the same way with formControlName -->
+      <input type="checkbox" formControlName="isActive" />
+      Active student
+    </label>
+
+   
+    <!-- Version is a concurrency token. We keep it in the form but hide it
+         from the user. -->
+    <input type="hidden" formControlName="version" />
+
+    <hr />
+
+    <!-- [disabled]="form.invalid" disables the button when ANY field fails
+         validation. -->
+    <button type="submit" [disabled]="form.invalid">
+      Save Student
+    </button>
+  </form>
+
+}
