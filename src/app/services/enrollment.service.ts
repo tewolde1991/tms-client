@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Enrollment } from '../models/enrollment.model';
+import { Enrollment, EnrollmentCreated, EnrollStudentCommand } from '../models/enrollment.model';
 
 @Service()
 export class EnrollmentService {
@@ -13,5 +13,8 @@ export class EnrollmentService {
     }
     approve(id:string):Observable<void>{
         return this.http.post<void>(`${this.baseUrl}/${id}/approve`, {});
+    }
+    enroll(command: EnrollStudentCommand):Observable<EnrollmentCreated>{
+        return this.http.post<EnrollmentCreated>(this.baseUrl,command);
     }
 }

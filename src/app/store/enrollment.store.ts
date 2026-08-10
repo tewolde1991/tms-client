@@ -3,24 +3,57 @@ import { setAllEntities, updateEntity, withEntities } from "@ngrx/signals/entiti
 import { computed, inject } from "@angular/core";
 import { Enrollment } from "../models/enrollment.model";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { catchError, concatMap, EMPTY, pipe, tap } from "rxjs";
+import { catchError, concatMap, EMPTY, pipe, switchMap, tap } from "rxjs";
 import { EnrollmentService } from "../services/enrollment.service";
+import { LiveSyncService } from "../services/live-sync";
 
 
 export const EnrollmentStore = signalStore({
     providedIn: 'root'
 },
-withState({isLoading: false, error: null as string | null}),
+withState({
+    isLoading: false, 
+    error: null as string | null}),
 withEntities<Enrollment>(),
 withComputed((store) => ({
     pendingCount: computed(
         () =>store.entities().filter(e =>e.status === 'Pending').length
     ),
 })),
+withMethods(
+    (
+        store,
+        api = inject(EnrollmentService),
+        sync = inject(LiveSyncService)
+    ) => ({
+        listenForLiveUpdates: rxMethod<void>(
+            pipe(
+                tap(() => {
+                    sync.connect();
+                }),
+
+                // listen to signalr event
+                switchMap(() => sync.events$),
+                tap(event => {
+                    patchState(
+                        store,
+                        updateEntity({
+                            id:Number(event.id),
+
+                            changes: {
+                                status: event.status
+                            }
+                        })
+                    )
+                })
+            )
+        )
+    })
+),
 withComputed((store)=>({
     rejectCount: computed(
-    () => store.entities().filter(e=>e.status === 'Rejected')
-    ),
+  () => store.entities().filter(e => e.status === 'Rejected').length
+)
 })),
 withMethods((store, api = inject(EnrollmentService)) => ({
 loadEnrollments: rxMethod<void>(

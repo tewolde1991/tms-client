@@ -24,13 +24,13 @@ e field (.touched)-->
 @if (form.controls.studentId.touched && form.controls.studentId.invalid) {
 <span class="error">Enter a valid Student ID (format: STU-0000)</span>
 }
-<label for="courseId">Course ID</label>
+<label for="courseCode">Course ID</label>
 <input
-id="courseId"
-formControlName="courseId"
+id="courseCode"
+formControlName="courseCode"
 placeholder="e.g. 1 (TMS course primary key)"
 />
-@if (form.controls.courseId.touched && form.controls.courseId.invalid)
+@if (form.controls.courseCode.touched && form.controls.courseCode.invalid)
 {
 <span class="error">Course ID is required</span>
 }

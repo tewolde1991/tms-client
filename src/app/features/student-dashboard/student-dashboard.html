@@ -16,7 +16,7 @@
     }
  @else {
 <div class="grid">
-@for (course of coursesResource.value()!.items; track course.id) {
+@for (course of coursesResource.value()!.data; track course.id) {
 <app-course-card [course]="course" (enrollClicked)="handleEnroll($event)" />
 } @empty {
 <p>No courses are available this term.</p>
