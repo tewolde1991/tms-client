@@ -6,6 +6,7 @@ import {
   CourseDetail,
   CourseResponse
 } from '../models/course.model';
+import { environment } from '../../environments/environment';
 
 export interface CourseUpsert {
   code: string;
@@ -18,8 +19,8 @@ export class CourseService {
 
   private http = inject(HttpClient);
 
-  private baseUrl = 'http://localhost:5298/api/v2/courses';
-
+  // private baseUrl = 'http://localhost:5298/api/v2/courses';
+private readonly base = `${environment.apiUrl}/courses`
 
   getAll(
     page = 1,
@@ -27,13 +28,9 @@ export class CourseService {
   ): Observable<CourseResponse> {
 
     return this.http.get<CourseResponse>(
-      this.baseUrl,
-      {
-        params: {
-          page,
-          pageSize
-        }
-      }
+     this.base,{
+      params: {page,pageSize}
+     }
     );
   }
 
@@ -43,7 +40,7 @@ export class CourseService {
   ): Observable<CourseDetail> {
 
     return this.http.get<CourseDetail>(
-      `${this.baseUrl}/${id}`
+      `${this.base}/${id}`
     );
   }
 
@@ -53,7 +50,7 @@ export class CourseService {
   ): Observable<Course> {
 
     return this.http.post<Course>(
-      this.baseUrl,
+      this.base,
       payload
     );
   }
@@ -65,7 +62,7 @@ export class CourseService {
   ): Observable<void> {
 
     return this.http.put<void>(
-      `${this.baseUrl}/${id}`,
+      `${this.base}/${id}`,
       {
         id,
         ...payload
