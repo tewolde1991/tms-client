@@ -1,0 +1,150 @@
+<div class="min-h-screen bg-slate-950 flex items-center justify-center px-4 py-10">
+  <!-- Registration Card -->
+  <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div
+        class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-indigo-600 shadow-lg shadow-indigo-600/20"
+      >
+        <span class="text-2xl font-bold text-white">TMS</span>
+      </div>
+
+      <h2 class="text-2xl font-bold text-white">Create an Account</h2>
+
+      <p class="mt-2 text-sm text-slate-400">Register a new user for your TMS system</p>
+    </div>
+
+    <!-- Server Error -->
+    @if (serverErrors.length) {
+      <div class="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 text-lg">⚠</span>
+
+          <div>
+            <p class="text-sm font-semibold text-red-400">Registration failed</p>
+
+            <ul class="mt-1 list-disc pl-4 text-sm text-red-300">
+              @for (err of serverErrors; track err) {
+                <li>{{ err }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Success Message -->
+    @if (successMessage) {
+      <div class="mb-6 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4">
+        <p class="text-sm font-medium text-emerald-400">✓ {{ successMessage }}</p>
+      </div>
+    }
+
+    <!-- Registration Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Email -->
+      <div>
+        <label for="email" class="mb-2 block text-sm font-medium text-slate-200"> Email </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          required
+          placeholder="you@example.com"
+          class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="mb-2 block text-sm font-medium text-slate-200">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          required
+          placeholder="Enter a strong password"
+          class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        />
+      </div>
+
+      <!-- Name Row -->
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <!-- First Name -->
+        <div>
+          <label for="firstName" class="mb-2 block text-sm font-medium text-slate-200">
+            First Name
+          </label>
+
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            required
+            placeholder="First name"
+            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+          />
+        </div>
+
+        <!-- Last Name -->
+        <div>
+          <label for="lastName" class="mb-2 block text-sm font-medium text-slate-200">
+            Last Name
+          </label>
+
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            required
+            placeholder="Last name"
+            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+          />
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div>
+        <label for="role" class="mb-2 block text-sm font-medium text-slate-200"> Role </label>
+
+        <select
+          id="role"
+          formControlName="role"
+          class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        >
+          <option value="Instructor">Instructor</option>
+          <option value="Student">Student</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid || isLoading"
+        class="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        @if (isLoading) {
+          <span class="flex items-center justify-center gap-2">
+            <span
+              class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+            ></span>
+
+            Registering...
+          </span>
+        } @else {
+          Create Account
+        }
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <div class="mt-8 border-t border-slate-800 pt-6 text-center">
+      <p class="text-xs text-slate-500">TMS · Secure User Registration</p>
+    </div>
+  </div>
+</div>

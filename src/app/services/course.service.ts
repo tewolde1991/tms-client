@@ -19,7 +19,7 @@ export class CourseService {
 
   private http = inject(HttpClient);
 
-  // private baseUrl = 'http://localhost:5298/api/v2/courses';
+  private baseUrl = 'http://localhost:5298/api/v2/courses';
 private readonly base = `${environment.apiUrl}/courses`
 
   getAll(
@@ -68,5 +68,14 @@ private readonly base = `${environment.apiUrl}/courses`
         ...payload
       }
     );
+  }
+  delete(
+    id: number
+  ):Observable<void>{
+
+    return this.http.delete<void>(
+      `${this.base}/${id}`,
+      
+    )
   }
 }

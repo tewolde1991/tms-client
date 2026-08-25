@@ -2,11 +2,17 @@
   "/api": {
     "target": "http://localhost:5298",
     "secure": false,
-    "changeOrigin": true
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "ws": true
   },
   "/hubs": {
     "target": "http://localhost:5298",
     "secure": false,
-    "ws": true
+    "ws": true,
+    "logLevel": "debug",
+    "onError": {
+      "function": "function(err, req, res) { console.log('Proxy error:', err.message); }"
+    }
   }
 }
