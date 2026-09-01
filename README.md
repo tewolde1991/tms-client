@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TmsClients
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
@@ -62,3 +63,6 @@ For more information on using the Angular CLI, including detailed command refere
 Sudent one
 email: Student@gmail.com
 pass: Stu@1234
+=======
+# tms-client
+>>>>>>> fd17fed33b964b023ef5672b1fe79f01be08b1c4
