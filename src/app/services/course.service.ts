@@ -19,7 +19,7 @@ export class CourseService {
 
   private http = inject(HttpClient);
 
-  private baseUrl = 'http://localhost:5298/api/v2/courses';
+  private baseUrl = 'http://localhost:1221/api/v2/courses';
 private readonly base = `${environment.apiUrl}/courses`
 
   getAll(

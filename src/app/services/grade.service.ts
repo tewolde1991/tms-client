@@ -10,7 +10,7 @@ export interface GradePayload {
 @Service()
 export class GradeService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:5298/api/grades'
+  private readonly apiUrl = 'http://localhost:1221/api/grades'
   postGrade(
     payload: GradePayload
 ): Observable<{ id: string; success: boolean }> {

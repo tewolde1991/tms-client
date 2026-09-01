@@ -1,13 +1,13 @@
 {
   "/api": {
-    "target": "http://localhost:5298",
+    "target": "http://localhost:1221",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
     "ws": true
   },
   "/hubs": {
-    "target": "http://localhost:5298",
+    "target": "http://localhost:1221",
     "secure": false,
     "ws": true,
     "logLevel": "debug",

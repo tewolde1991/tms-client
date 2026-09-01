@@ -1,150 +1,104 @@
-<div class="min-h-screen bg-slate-950 flex items-center justify-center px-4 py-10">
-  <!-- Registration Card -->
-  <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8">
-    <!-- Header -->
-    <div class="text-center mb-8">
-      <div
-        class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-indigo-600 shadow-lg shadow-indigo-600/20"
-      >
-        <span class="text-2xl font-bold text-white">TMS</span>
-      </div>
+<div class="auth-page">
+  <div class="auth-card">
 
-      <h2 class="text-2xl font-bold text-white">Create an Account</h2>
-
-      <p class="mt-2 text-sm text-slate-400">Register a new user for your TMS system</p>
+    <div class="auth-header">
+      <div class="auth-logo">TMS</div>
+      <h1>Training Management System</h1>
+      <p>Create your account</p>
     </div>
 
-    <!-- Server Error -->
-    @if (serverErrors.length) {
-      <div class="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4">
-        <div class="flex items-start gap-3">
-          <span class="text-red-400 text-lg">⚠</span>
+    <div class="auth-body">
+      <h2 class="form-title">Register a new account</h2>
 
-          <div>
-            <p class="text-sm font-semibold text-red-400">Registration failed</p>
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="alert alert-error" *ngIf="serverErrors.length > 0">
+        <ul><li *ngFor="let err of serverErrors">{{ err }}</li></ul>
+      </div>
 
-            <ul class="mt-1 list-disc pl-4 text-sm text-red-300">
-              @for (err of serverErrors; track err) {
-                <li>{{ err }}</li>
-              }
-            </ul>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" formControlName="firstName" placeholder="Tewolde"
+              [class.input-error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"/>
+            <span class="field-error" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">Required.</span>
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" formControlName="lastName" placeholder="Tegegn"
+              [class.input-error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"/>
+            <span class="field-error" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">Required.</span>
           </div>
         </div>
-      </div>
-    }
 
-    <!-- Success Message -->
-    @if (successMessage) {
-      <div class="mb-6 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4">
-        <p class="text-sm font-medium text-emerald-400">✓ {{ successMessage }}</p>
-      </div>
-    }
-
-    <!-- Registration Form -->
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
-      <!-- Email -->
-      <div>
-        <label for="email" class="mb-2 block text-sm font-medium text-slate-200"> Email </label>
-
-        <input
-          id="email"
-          type="email"
-          formControlName="email"
-          required
-          placeholder="you@example.com"
-          class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        />
-      </div>
-
-      <!-- Password -->
-      <div>
-        <label for="password" class="mb-2 block text-sm font-medium text-slate-200">
-          Password
-        </label>
-
-        <input
-          id="password"
-          type="password"
-          formControlName="password"
-          required
-          placeholder="Enter a strong password"
-          class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        />
-      </div>
-
-      <!-- Name Row -->
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <!-- First Name -->
-        <div>
-          <label for="firstName" class="mb-2 block text-sm font-medium text-slate-200">
-            First Name
-          </label>
-
-          <input
-            id="firstName"
-            type="text"
-            formControlName="firstName"
-            required
-            placeholder="First name"
-            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-          />
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" formControlName="email" placeholder="you@organization.et"
+            [class.input-error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"/>
+          <span class="field-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">Enter a valid email address.</span>
         </div>
 
-        <!-- Last Name -->
-        <div>
-          <label for="lastName" class="mb-2 block text-sm font-medium text-slate-200">
-            Last Name
-          </label>
+        <!-- Password -->
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-icon-wrap">
+            <input id="password" [type]="showPassword ? 'text' : 'password'"
+              formControlName="password" placeholder="Min. 8 characters"
+              [class.input-error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"/>
+            <button type="button" class="toggle-pw" (click)="showPassword = !showPassword">
+              {{ showPassword ? '🙈' : '👁️' }}
+            </button>
+          </div>
 
-          <input
-            id="lastName"
-            type="text"
-            formControlName="lastName"
-            required
-            placeholder="Last name"
-            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-          />
-        </div>
-      </div>
+          <!-- Strength bar -->
+          <div class="strength-bar" *ngIf="passwordValue.length > 0">
+            <div class="strength-track">
+              <div class="strength-fill" [class]="strength"></div>
+            </div>
+            <span class="strength-label" [class]="strength">{{ strengthLabel }}</span>
+          </div>
 
-      <!-- Role -->
-      <div>
-        <label for="role" class="mb-2 block text-sm font-medium text-slate-200"> Role </label>
+          <!-- Suggestions -->
+          <ul class="pw-suggestions" *ngIf="suggestions.length > 0 && registerForm.get('password')?.touched">
+            <li *ngFor="let s of suggestions">{{ s }}</li>
+          </ul>
 
-        <select
-          id="role"
-          formControlName="role"
-          class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        >
-          <option value="Instructor">Instructor</option>
-          <option value="Student">Student</option>
-          <option value="Admin">Admin</option>
-        </select>
-      </div>
-
-      <!-- Submit -->
-      <button
-        type="submit"
-        [disabled]="registerForm.invalid || isLoading"
-        class="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        @if (isLoading) {
-          <span class="flex items-center justify-center gap-2">
-            <span
-              class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
-            ></span>
-
-            Registering...
+          <span class="field-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            Password must be at least 8 characters.
           </span>
-        } @else {
-          Create Account
-        }
-      </button>
-    </form>
+        </div>
 
-    <!-- Footer -->
-    <div class="mt-8 border-t border-slate-800 pt-6 text-center">
-      <p class="text-xs text-slate-500">TMS · Secure User Registration</p>
+        <!-- Confirm Password -->
+        <div class="field">
+          <label for="confirmPassword">Confirm password</label>
+          <div class="input-icon-wrap">
+            <input id="confirmPassword" [type]="showConfirm ? 'text' : 'password'"
+              formControlName="confirmPassword" placeholder="Re-enter password"
+              [class.input-error]="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched"/>
+            <button type="button" class="toggle-pw" (click)="showConfirm = !showConfirm">
+              {{ showConfirm ? '🙈' : '👁️' }}
+            </button>
+          </div>
+          <span class="field-error" *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+            Passwords do not match.
+          </span>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="isLoading || registerForm.invalid">
+          {{ isLoading ? 'Creating account...' : 'CREATE ACCOUNT' }}
+        </button>
+
+      </form>
+
+      <div class="auth-footer-link">
+        Already registered? <a routerLink="/login">Sign in</a>
+      </div>
+
+      <div class="auth-footer">
+        <div class="auth-badge">Secured · Federal Ministry of Education</div>
+        <p class="copyright">&copy; {{ currentYear }} Training Management System. All rights reserved.</p>
+      </div>
     </div>
   </div>
 </div>

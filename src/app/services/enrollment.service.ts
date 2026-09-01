@@ -6,7 +6,7 @@ import { Enrollment, EnrollmentCreated, EnrollStudentCommand } from '../models/e
 @Service()
 export class EnrollmentService {
     private http = inject(HttpClient)
-    private baseUrl = 'http://localhost:5298/api/v2/enrollments';
+    private baseUrl = 'http://localhost:1221/api/v2/enrollments';
 
     getAll(): Observable<Enrollment[]>{
         return this.http.get<Enrollment[]>(this.baseUrl);
